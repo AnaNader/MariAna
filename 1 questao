@@ -1,19 +1,13 @@
-linha = int(input())
-coluna = int(input())
-orientacao = str(input())
-tamanho = int(input())
-
-def define_posicoes(linha, coluna, orientacao,tamanho):
-	resposta=[]
-    if orientacao == 'vertical':
-        a = 0 
+def define_posicoes (linha, coluna, orientacao, tamanho):
+    resposta = []
+    if orientacao == "vertical":
+        a = 0
         while a < tamanho:
             resposta.append([linha + a, coluna])
-        	a += 1
-  	else:
-    	a = 0
-    	while a < tamanho:
-      		resposta.append([linha, coluna + a])
-      		a += 1
-  	return resposta 
-print(define_posicoes(linha, coluna, orientacao,tamanho))
+            a = a + 1
+    else:
+        a = 0
+        while a < tamanho:
+            resposta.append([linha, coluna + a])
+            a = a + 1
+    return resposta
