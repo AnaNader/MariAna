@@ -1,0 +1,57 @@
+tabuleiro = [[0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],]
+
+def define_posicoes (linha, coluna, orientacao, tamanho):
+  resposta = []
+  if orientacao == "vertical":
+    a = 0
+    while a < tamanho:
+      resposta.append([linha + a, coluna])
+      a = a + 1
+  else:
+    a = 0
+    while a < tamanho:
+      resposta.append([linha, coluna + a])
+      a = a + 1
+  return resposta
+
+def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
+  if nome_navio in frota:
+    frota[nome_navio].append(define_posicoes(linha, coluna, orientacao, tamanho))
+  else:
+    frota[nome_navio] =  [define_posicoes(linha, coluna, orientacao, tamanho)]
+  return frota
+
+def faz_jogada(tabuleiro, linha, coluna):
+    if tabuleiro[linha][coluna] == 1:
+      tabuleiro[linha][coluna] = "X"
+    else:
+      tabuleiro[linha][coluna] = "-"
+    return tabuleiro
+
+def posiciona_frota(frota):
+  tab =  [[0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],]
+  for lista in frota.values():
+    for navio in lista:
+      for posicao in navio:
+        x = posicao[0]
+        y = posicao[1]
+        tab[x][y] = 1
+  return tab
