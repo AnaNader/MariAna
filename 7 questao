@@ -20,3 +20,23 @@ for navio in frota.keys():
     vezes = vezes + 1
   tamanho = tamanho - 1
 print(frota)
+
+barco={'porta-aviões': 4, 
+       'navio-tanque': 3, 
+       'contratorpedeiro': 2, 
+       'submarino': 1}
+barcos = barco.keys
+tama = barco.values
+print(f'Insira as informações referentes ao navio {barcos} que possui tamanho {tama}')
+li=int(input("Digite a linha: "))
+co=int(input("Digite a coluna: "))
+if barcos != 'submarino':
+  ori=int(input("dijite a orientação: "))
+  if ori==1:
+    ori='horizontal' 
+  else:
+    ori='vertical'
+
+posi=posicao_valida(frota, li, co, ori, tama)
+if posi==True:
+  frota=preenche_frota(frota, barcos, li, co, ori, tama)
