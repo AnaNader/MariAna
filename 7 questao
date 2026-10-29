@@ -31,7 +31,7 @@ print(f'Insira as informações referentes ao navio {barcos} que possui tamanho 
 li=int(input("Digite a linha: "))
 co=int(input("Digite a coluna: "))
 if barcos != 'submarino':
-  ori=int(input("dijite a orientação: "))
+  ori=int(input("digite a orientação: "))
   if ori==1:
     ori='horizontal' 
   else:
