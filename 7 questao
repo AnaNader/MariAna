@@ -1,0 +1,19 @@
+frota = {"porta-aviões":[], "navio-tanque":[], "contratorpedeiro":[], "submarino": []}
+tamanho = 4
+vezes = 1
+for navio in frota.keys():
+  i = 1
+  while i <= vezes:
+    print("f(Insira as informações referentes ao navio {navio} que possui tamanho {tamanho})")
+    linha = int(input("linha: "))
+    coluna = int(input("coluna: "))
+    while linha > 9:
+      linha = int(input("linha: "))
+    while coluna > 9:
+      coluna = int(input("coluna: "))
+    if navio != "submarino":
+      orientacao = int(input("orientacao: "))
+    while orientacao != 1 or orientacao != 2:
+      orientacao = int(input("orientacao: "))
+    vezes = vezes + 1
+  tamanho = tamanho - 1
