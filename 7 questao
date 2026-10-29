@@ -4,16 +4,19 @@ vezes = 1
 for navio in frota.keys():
   i = 1
   while i <= vezes:
-    print("f(Insira as informações referentes ao navio {navio} que possui tamanho {tamanho})")
+    print(f"Insira as informações referentes ao navio {navio} que possui tamanho {tamanho}")
     linha = int(input("linha: "))
     coluna = int(input("coluna: "))
-    while linha > 9:
-      linha = int(input("linha: "))
-    while coluna > 9:
-      coluna = int(input("coluna: "))
     if navio != "submarino":
-      orientacao = int(input("orientacao: "))
-    while orientacao != 1 or orientacao != 2:
-      orientacao = int(input("orientacao: "))
+      orientacao = int(input("[1] Vertical [2] Horizontal: "))
+    if posicao_valida(frota, linha, coluna, orientacao, tamanho) == False:
+      print("Esta posição não está válida!")
+      linha = int(input("linha: "))
+      coluna = int(input("coluna: "))
+      orientacao = int(input("[1] Vertical [2] Horizontal: "))
+    else:
+      define_posicoes(linha, coluna, orientacao, tamanho)
+      preenche_frota(frota, navio, linha, coluna, orientacao, tamanho)
     vezes = vezes + 1
   tamanho = tamanho - 1
+print(frota)
