@@ -63,3 +63,19 @@ def afundados(frota, tab):
         if tab[numeros[0]][numeros[1]] =='X':
           afundado+=1
   return afundado
+
+def afundados (frota, tab):
+  resultado = 0
+  for lista in frota.values():
+    for navio in lista:
+      tamanho = 0
+      afunda = 0
+      for posicao in navio:
+        tamanho = tamanho + 1
+        x = posicao[0]
+        y = posicao[1]
+        if tab[x][y] == "X":
+          afunda = afunda + 1
+      if afunda == tamanho:
+        resultado = resultado + 1
+  return resultado
