@@ -1,42 +1,111 @@
+tabuleiro = [[0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],]
+
+def define_posicoes (linha, coluna, orientacao, tamanho):
+  resposta = []
+  if orientacao == "vertical":
+    a = 0
+    while a < tamanho:
+      resposta.append([linha + a, coluna])
+      a = a + 1
+  else:
+    a = 0
+    while a < tamanho:
+      resposta.append([linha, coluna + a])
+      a = a + 1
+  return resposta
+
+def preenche_frota(frota, nome_navio, linha, coluna, orientacao, tamanho):
+  if nome_navio in frota:
+    frota[nome_navio].append(define_posicoes(linha, coluna, orientacao, tamanho))
+  else:
+    frota[nome_navio] =  [define_posicoes(linha, coluna, orientacao, tamanho)]
+  return frota
+
+def faz_jogada(tabuleiro, linha, coluna):
+    if tabuleiro[linha][coluna] == 1:
+      tabuleiro[linha][coluna] = "X"
+    else:
+      tabuleiro[linha][coluna] = "-"
+    return tabuleiro
+
+def posiciona_frota(frota):
+  tab =  [[0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0],]
+  for lista in frota.values():
+    for navio in lista:
+      for posicao in navio:
+        x = posicao[0]
+        y = posicao[1]
+        tab[x][y] = 1
+  return tab
+
+def afundados(frota, tab):
+  afundado=0
+  for posicao in frota.values():
+    for coordenada in posicao:
+      for numeros in coordenada:
+        if tab[numeros[0]][numeros[1]] =='X':
+          afundado+=1
+  return afundado
+
+def posicao_valida (frota, linha, coluna, orientacao, tamanho):
+  navio = define_posicoes(linha, coluna, orientacao, tamanho)
+  for ponto in navio:
+    if ponto[0] > 9 or ponto[1] > 9:
+      return False
+  for posicao in frota.values():
+    for coordenada in posicao:
+      for numeros in coordenada:
+        if numeros in navio:
+          return False
+  return True
+
 frota = {"porta-aviões":[], "navio-tanque":[], "contratorpedeiro":[], "submarino": []}
 tamanho = 4
-vezes = 1
+vezes = 0
 for navio in frota.keys():
   i = 1
+  vezes = vezes + 1
   while i <= vezes:
     print(f"Insira as informações referentes ao navio {navio} que possui tamanho {tamanho}")
     linha = int(input("linha: "))
     coluna = int(input("coluna: "))
     if navio != "submarino":
       orientacao = int(input("[1] Vertical [2] Horizontal: "))
+      if orientacao == 1:
+        orientacao = "vertical"
+      else:
+        orientacao = "horizontal"
     if posicao_valida(frota, linha, coluna, orientacao, tamanho) == False:
       print("Esta posição não está válida!")
       linha = int(input("linha: "))
       coluna = int(input("coluna: "))
-      orientacao = int(input("[1] Vertical [2] Horizontal: "))
+      if navio != "submarino":
+        orientacao = int(input("[1] Vertical [2] Horizontal: "))
+        if orientacao == 1:
+          orientacao = "vertical"
+        else:
+          orientacao = "horizontal"
     else:
       define_posicoes(linha, coluna, orientacao, tamanho)
       preenche_frota(frota, navio, linha, coluna, orientacao, tamanho)
-    vezes = vezes + 1
+    i = i + 1
   tamanho = tamanho - 1
 print(frota)
-
-barco={'porta-aviões': 4, 
-       'navio-tanque': 3, 
-       'contratorpedeiro': 2, 
-       'submarino': 1}
-barcos = barco.keys
-tama = barco.values
-print(f'Insira as informações referentes ao navio {barcos} que possui tamanho {tama}')
-li=int(input("Digite a linha: "))
-co=int(input("Digite a coluna: "))
-if barcos != 'submarino':
-  ori=int(input("digite a orientação: "))
-  if ori==1:
-    ori='horizontal' 
-  else:
-    ori='vertical'
-
-posi=posicao_valida(frota, li, co, ori, tama)
-if posi==True:
-  frota=preenche_frota(frota, barcos, li, co, ori, tama)
