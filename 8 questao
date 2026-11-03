@@ -1,4 +1,3 @@
-
 frota_oponente = {
     'porta-aviões': [
         [[9, 1], [9, 2], [9, 3], [9, 4]]
@@ -19,16 +18,13 @@ frota_oponente = {
         [[7, 6]]
     ]
 }
-
 tabuleiro_oponente = posiciona_frota(frota_oponente)
 tabuleiro_jogador = posiciona_frota(frota)
-
 while True:
   def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
     texto = ''
     texto += '   0  1  2  3  4  5  6  7  8  9         0  1  2  3  4  5  6  7  8  9\n'
     texto += '_______________________________      _______________________________\n'
-
     for linha in range(len(tabuleiro_jogador)):
       jogador_info = '  '.join([str(item) for item in tabuleiro_jogador[linha]])
       oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
@@ -36,26 +32,17 @@ while True:
     return texto
   print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
   linha = int(input("Jogador, qual linha deseja atacar? "))
-  coluna = int(input("Jogador, qual coluna deseja atacar? "))
   while linha < 0 or linha > 9:
     print("Linha inválida!")
     linha = int(input("Jogador, qual linha deseja atacar? "))
+  coluna = int(input("Jogador, qual coluna deseja atacar? "))
   while coluna < 0 or coluna > 9:
     print("Coluna inválida!")
     coluna = int(input("Jogador, qual coluna deseja atacar? "))
   if tabuleiro_oponente[linha][coluna] == "X" or tabuleiro_oponente[linha][coluna] == "-":
     print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
-    linha = int(input("Jogador, qual linha deseja atacar? "))       
-    while linha < 0 or linha > 9:
-      print("Linha inválida!")
-      linha = int(input("Jogador, qual linha deseja atacar? "))
-    coluna = int(input("Jogador, qual coluna deseja atacar? "))        
-    while coluna < 0 or coluna > 9:
-      print("Coluna inválida!")
-      coluna = int(input("Jogador, qual coluna deseja atacar? "))
   else:
     tabuleiro_oponente = faz_jogada(tabuleiro_oponente, linha, coluna)
     if afundados(frota_oponente, tabuleiro_oponente) == 20:
       print('Parabéns! Você derrubou todos os navios do seu oponente!')
       break
-       
